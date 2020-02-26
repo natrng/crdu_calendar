@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% block content %} {{ calendar }} 
+<div
+  class="modal fade"
+  id="FormModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add an event</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="error-message">
+        {%for message in messages %}
+        <p class="text-danger">{{message}}</p>
+        {%endfor%}
+      </div>
+      <div class="modal-body">
+        <form action="calendar/new" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Title</label>
+                <input class="form-control" type="text" name="title" id="title">
+            </div>
+            <div class="form-group">
+                <label>Start date</label>
+                <input class="form-control" type="date" name="start" id="start">
+            </div>
+            <div class="form-group">
+              <label>Start time</label>
+              <input class="form-control" type="time" name="start_time" id="start">
+          </div>
+            <div class="form-group">
+                <label>End date</label>
+                <input class="form-control" type="date" name="end" id="end">
+            </div>
+            <div class="form-group">
+              <label>End time</label>
+              <input class="form-control" type="time" name="end_time" id="end">
+          </div>
+            <label>Urgency</label>
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="urgent" value="Low" id="urgent">
+                    <label class="form-check-label">Low</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="urgent" value="Medium" id="urgent">
+                    <label class="form-check-label">Medium</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="urgent" value="High" id="urgent">
+                    <label class="form-check-label">High</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="urgent" value="Critical" id="urgent">
+                    <label class="form-check-label">Critical</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="3" class="form-control" id="description"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

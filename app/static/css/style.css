@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css?family=Lato|Lora&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.calendar, #landing{
+    font-family: "Lato" !important;
+}
+
+#landing {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("/static/img/landing.jpg");
+  background-size: cover;
+}
+
+#landing h3,
+h1 {
+  margin-bottom: 30px;
+}
+
+#landing h1 {
+  color: white;
+  font-size: 4rem;
+  text-align: center;
+}
+
+#log_reg {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px;
+  border-radius: 20px;
+  width: 60vw;
+}
+
+#all {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+.col {
+  text-align: center;
+  padding: 0 70px;
+}
+
+.calendar {
+  width: 70%;
+  margin: auto;
+  font-size: 13px;
+}
+
+.calendar tr,
+.calendar td {
+  border-bottom: 1px solid black;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar td {
+  width: 200px;
+  height: 100px;
+  padding: 20px 0px 0px 5px;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+ul {
+  list-style: none;
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
+
+a {
+  color: #17a2b8;
+}
+
+.Low{
+  border: 1px solid #20c997;
+}
+
+.Low .card-header{
+  background-color: #20c997;
+}
+
+.Low_cal{
+  background-color: #20c997;
+  padding: 1px 2px;
+  color:white;
+}
+
+.Medium{
+  border: 1px solid #ffc107;
+}
+
+.Medium .card-header{
+  background-color: #ffc107;
+}
+
+.Medium_cal{
+  background-color: #ffc107;
+  padding: 1px 2px;
+  color:white;
+}
+
+.High{
+  border: 1px solid #fd7e14;
+}
+
+.High .card-header{
+  background-color: #fd7e14;
+}
+
+.High_cal{
+  background-color: #fd7e14;
+  padding: 1px 2px;
+  color:white;
+}
+
+.Critical{
+  border: 1px solid #dc3545;
+}
+
+.Critical_cal{
+  background-color: #dc3545;
+  padding: 1px 2px;
+  color:white;
+}
+
+.Critical .card-header{
+  background-color: #dc3545;
+}

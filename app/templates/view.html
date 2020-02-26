@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <title>Document</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/success">MyCalendar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="/success">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" data-toggle="modal" data-target="#FormModal" style="cursor: pointer;">Create
+          event</a>
+      </div>
+      <a class="nav-item nav-link" href="/logout">Logout</a>
+    </div>
+  </nav>
+  <div class="error-message">
+    <div class="container">
+      {%for message in messages %}
+      <p class="text-danger">{{message}}</p>
+      {%endfor%}
+    </div>
+  </div>
+  <div class="modal fade" id="FormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add an event</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="calendar/new" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label>Title</label>
+              <input class="form-control" type="text" name="title" id="title">
+            </div>
+            <div class="form-group">
+              <label>Start date</label>
+              <input class="form-control" type="date" name="start" id="start">
+            </div>
+            <div class="form-group">
+              <label>Start time</label>
+              <input class="form-control" type="time" name="start_time" id="start">
+            </div>
+            <div class="form-group">
+              <label>End date</label>
+              <input class="form-control" type="date" name="end" id="end">
+            </div>
+            <div class="form-group">
+              <label>End time</label>
+              <input class="form-control" type="time" name="end_time" id="end">
+            </div>
+            <label>Urgency</label>
+            <div class="form-group">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="Low" id="urgent">
+                <label class="form-check-label">Low</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="Medium" id="urgent">
+                <label class="form-check-label">Medium</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="High" id="urgent">
+                <label class="form-check-label">High</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="Critical" id="urgent">
+                <label class="form-check-label">Critical</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea name="description" rows="3" class="form-control" id="description"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="error-message">
+    <div class="container">
+      {%for message in messages %}
+      <p class="text-danger">{{message}}</p>
+      {%endfor%}
+    </div>
+  </div>
+  <div class="modal fade" id="FormModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit event</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form action="/calendar/update/{{event.id}}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label>Title</label>
+              <input class="form-control" type="text" name="title" id="title" value="{{event.title}}" />
+            </div>
+            <div class="form-group">
+              <label>Start date</label>
+              <input class="form-control" type="date" name="start" id="start" value="{{event.start|date:'Y-m-d'}}" />
+            </div>
+            <div class="form-group">
+              <label>Start time</label>
+              <!-- {{event.time_start}} -->
+              <br />
+              <input class="form-control" type="time" name="start_time" id="start"
+                value="{{event.time_start|time:'H:i'}}" />
+            </div>
+            <div class="form-group">
+              <label>End date</label>
+              <input class="form-control" type="date" name="end" id="end" value="{{event.end|date:'Y-m-d'}}" />
+            </div>
+            <div class="form-group">
+              <label>End time</label>
+              <input class="form-control" type="time" name="time_end" id="end" value="{{event.time_end|time:'H:i'}}" />
+            </div>
+            <label>Urgency</label>
+            <div class="form-group">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="Low" id="urgent" />
+                <label class="form-check-label">Low</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="Medium" id="urgent" />
+                <label class="form-check-label">Medium</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="High" id="urgent" />
+                <label class="form-check-label">High</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="urgent" value="Critical" id="urgent" />
+                <label class="form-check-label">Critical</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea name="description" rows="3" class="form-control"
+                id="description">{{event.description}}</textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card mt-5 {{event.urgent}}">
+      <h5 class="card-header">Title: {{event.title}}</h5>
+      <div class="card-body">
+        <h5 class="card-title">
+          {{event.start.date}} {{event.time_start}} - {{event.end.date}}
+          {{event.time_end}}
+        </h5>
+        <p class="card-text">Description: {{event.description}}</p>
+        <div class="card-body">
+          <form action="/calendar/delete/{{event.id}}" method="post" style="display: inline-block;">
+            {% csrf_token %}
+            <button class="btn btn-danger">Delete</button>
+          </form>
+          <a class="btn btn-info" data-toggle="modal" data-target="#FormModalEdit" style="color: white;">Edit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
