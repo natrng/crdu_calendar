@@ -47,7 +47,7 @@ class EventManager(models.Manager):
             errors['time_end'] = 'Ending time cannot be empty'
         if data['time_start']=="":
             errors['time_start'] = 'Ending time cannot be empty'
-        if data.get('urgent')==None:
+        if data.get('urgent') is None and data.get('urgentE') is None:
             errors['urgent'] = 'Must define urgency'
         return errors
         

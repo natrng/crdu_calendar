@@ -56,7 +56,7 @@
             </div>
             <div class="form-group">
               <label>Start time</label>
-              <input class="form-control" type="time" name="start_time" id="start">
+              <input class="form-control" type="time" name="time_start" id="start">
             </div>
             <div class="form-group">
               <label>End date</label>
@@ -64,7 +64,7 @@
             </div>
             <div class="form-group">
               <label>End time</label>
-              <input class="form-control" type="time" name="end_time" id="end">
+              <input class="form-control" type="time" name="time_end" id="end">
             </div>
             <label>Urgency</label>
             <div class="form-group">
@@ -133,7 +133,7 @@
               <label>Start time</label>
               <!-- {{event.time_start}} -->
               <br />
-              <input class="form-control" type="time" name="start_time" id="start"
+              <input class="form-control" type="time" name="time_start" id="start"
                 value="{{event.time_start|time:'H:i'}}" />
             </div>
             <div class="form-group">
@@ -145,21 +145,22 @@
               <input class="form-control" type="time" name="time_end" id="end" value="{{event.time_end|time:'H:i'}}" />
             </div>
             <label>Urgency</label>
+            <input type="hidden" id="urgency" value="{{event.urgent}}">
             <div class="form-group">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="urgent" value="Low" id="urgent" />
+                <input class="form-check-input" type="radio" name="urgentE" value="Low" id="urgent" />
                 <label class="form-check-label">Low</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="urgent" value="Medium" id="urgent" />
+                <input class="form-check-input" type="radio" name="urgentE" value="Medium" id="urgent" />
                 <label class="form-check-label">Medium</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="urgent" value="High" id="urgent" />
+                <input class="form-check-input" type="radio" name="urgentE" value="High" id="urgent" />
                 <label class="form-check-label">High</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="urgent" value="Critical" id="urgent" />
+                <input class="form-check-input" type="radio" name="urgentE" value="Critical" id="urgent" />
                 <label class="form-check-label">Critical</label>
               </div>
             </div>
@@ -198,6 +199,16 @@
       </div>
     </div>
   </div>
+  <script>
+    urg = document.getElementById("urgency").value;
+    all = document.getElementsByName("urgentE");
+    for(var i=0; i<all.length; i++){
+      if(all[i].value==urg){
+        all[i].checked=true;
+      }
+      console.log(all[i])
+    }
+  </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>

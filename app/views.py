@@ -34,6 +34,7 @@ def register(request):
     return redirect('/success')
 
 def update(request, id):
+    print(request.POST)
     uid = request.session.get('user_id')
     if(uid==None):
         return redirect("/")
@@ -48,8 +49,8 @@ def update(request, id):
     event_from_db.description = request.POST['description']
     event_from_db.start = dt.strptime(request.POST['start'], "%Y-%m-%d")
     event_from_db.end = dt.strptime(request.POST['end'], "%Y-%m-%d")
-    event_from_db.urgent = request.POST['urgent']
-    event_from_db.time_start = request.POST['start_time']
+    event_from_db.urgent = request.POST['urgentE']
+    event_from_db.time_start = request.POST['time_start']
     event_from_db.time_end = request.POST['time_end']
     event_from_db.save()
     return redirect(f"/calendar/edit/{id}")
@@ -72,8 +73,8 @@ def create(request):
         end = request.POST['end'],
         urgent = request.POST['urgent'],
         user = user_logged,
-        time_start = request.POST['start_time'],
-        time_end = request.POST['end_time']
+        time_start = request.POST['time_start'],
+        time_end = request.POST['time_end']
     )
     return redirect('/success')
 
